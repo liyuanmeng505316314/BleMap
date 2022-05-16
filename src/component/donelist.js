@@ -44,12 +44,12 @@ const Component = observer(() => {
                                 <Img src={item.attributes.url.attributes.url}/>
                             </div>
                             <div>
-                                <h5>{item.attributes.title}</h5>
+                                <h5>这里是地图的名称：&nbsp;&nbsp;&nbsp;&nbsp; {item.attributes.title}</h5>
                             </div>
                             <div>
-                                <a target="_blank"
-                                   href={item.attributes.url.attributes.url}>{item.attributes.url.attributes.url}</a>
+                                <h5>这里该地图的拥有的信标Name：&nbsp;&nbsp;&nbsp;&nbsp; 教四216</h5>
                             </div>
+
                         </List.Item>
                     }
                 >

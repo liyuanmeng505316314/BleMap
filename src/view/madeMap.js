@@ -1,8 +1,9 @@
 import {Form, Input, Button, message} from 'antd';
 import React from 'react';
 import styled from 'styled-components';
-import {useStore} from '../store';  // 引入useStore，user是对Auth的进一步封装，通过他，我们的V层，可以与M层交互
+import {useStore} from '../store';
 import {useHistory} from 'react-router-dom';
+
 
 const Wrapper = styled.div`
   max-width: 600px;
@@ -17,22 +18,22 @@ const Title = styled.h1`
 `
 
 const Component = () => {
-    const {AuthStore} = useStore(); // 我怀疑userStore是以一个构造函数，而不用new 用{AuthStore}
+    const {AuthStore, UserStore} = useStore();
     const history = useHistory();
-
-
-    const onFinish = values => {
+    const onFinish = (values) => {
         console.log('Success2:', values);
         AuthStore.setUsername(values.username);
         AuthStore.setPassword(values.password);
-        AuthStore.register()
+        AuthStore.login()
             .then(() => {
-                console.log('注册成功,跳转到首页')
+                console.log('登录成功,跳转到首页')
+                console.log(UserStore.currentUser)
                 history.push('/')
             }).catch((e) => {
             console.log(e)
-            console.log('注册失败')
+            console.log('登录失败')
         })
+
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -45,17 +46,10 @@ const Component = () => {
         return Promise.resolve()
     };
 
-    //  const validateConfirm = ({getFieldValue}) => ({
-    //     validator(rule,value){
-    //        if(getFieldValue('password')===value) return Promise.resolve
-    //        return Promise.reject('两次密码不一致')
-    //    }
-    //  });
-
     return (
         <Wrapper>
             <Title>
-                注册
+                绘制地图
             </Title>
 
             <Form
@@ -74,12 +68,27 @@ const Component = () => {
                 autoComplete="off"
             >
                 <Form.Item
-                    label="用户名"
+                    label="地图ID"
                     name="username"
                     rules={[
                         {
                             required: true,
-                            message: '请输入用户名!',
+                            message: '设备ID!',
+                        }, {
+                            validator: validateUsername
+                        }
+                    ]}
+                >
+                    <Input/>
+                </Form.Item>
+                
+                <Form.Item
+                    label="地图URL"
+                    name="username"
+                    rules={[
+                        {
+                            required: true,
+                            message: '设备ID!',
                         }, {
                             validator: validateUsername
                         }
@@ -89,56 +98,19 @@ const Component = () => {
                 </Form.Item>
 
                 <Form.Item
-
-                    label="密码"
-                    name="password"
+                    label="信标名称"
+                    name="username"
                     rules={[
                         {
                             required: true,
-                            message: '请输入密码！',
+                            message: '设备ID!',
                         }, {
-                            min: 4,
-                            message: '最小4个字符'
-
-                        }, {
-                            max: 10,
-                            message: '最大10个字符'
+                            validator: validateUsername
                         }
                     ]}
                 >
-                    <Input.Password/>
+                    <Input/>
                 </Form.Item>
-
-                {/* 确认密码  */}
-
-                {/* 不知道为什么，加了confirm就不行，我也不懂为什么 */}
-
-                {/* <Form.Item
-        label="确认密码"
-        name="confirm"
-        rules={[
-          {
-            required: true,
-            message: '请确认密码！',
-          },
-          validateConfirm 
-        ]}
-      >
-        <Input.Password />
-      </Form.Item> */}
-
-                {/* 没有用的cheackbox栏 */}
-                {/* <Form.Item
-        name="remember"
-        valuePropName="checked"
-        wrapperCol={{
-          offset: 8,
-          span: 16,
-        }}
-      >
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item> */}
-
                 <Form.Item
                     wrapperCol={{
                         offset: 10,

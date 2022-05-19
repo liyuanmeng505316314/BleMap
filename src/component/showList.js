@@ -1,12 +1,9 @@
-import {List, Spin,Button} from "antd";
+import {List, Spin} from "antd";
 import React, {useEffect} from "react";
 import {observer} from "mobx-react";
 import {useStore} from "../store";
 import InfiniteScroll from 'react-infinite-scroller';
 import styled from 'styled-components';
-import {useHistory} from 'react-router-dom';
-
-
 
 const Img = styled.img`
   width: 100px;
@@ -15,24 +12,13 @@ const Img = styled.img`
   border: 1px solid #eee;
 `;
 
-const StyledButton = styled(Button)`
-  margin-left: 40px;
-`;
-
-
-
 const Component = observer(() => {
     const {HistoryStore} = useStore();
-    const history = useHistory();
     const loadMore = () => {
         console.log('执行了loadMore，但是不知道会不会执行find');
-        HistoryStore.findBeacon();
+        HistoryStore.find();
         console.log("HistoryStore.list是,component的list" + HistoryStore.list)
     };
-    const onClick = () => {
-        history.push('/map')
-    };
-    
     useEffect(() => {
         console.log('进入组件')
         return () => {
@@ -50,20 +36,17 @@ const Component = observer(() => {
                 hasMore={!HistoryStore.isLoading && HistoryStore.hasMore}
                 useWindow={true}
             >
-                <List 
-                    dataSource={HistoryStore.list}
-                    renderItem={
+                <List dataSource={HistoryStore.list} renderItem={
                         item => <List.Item key={item.id}>
                             <div>
                                 <Img src={item.attributes.url.attributes.url}/>
                             </div>
                             <div>
-                                <h5>这里是地图的名称：&nbsp;&nbsp;&nbsp;&nbsp; {item.attributes.title}</h5>
+                                <h5>{item.attributes.title}</h5>
                             </div>
                             <div>
-                                <h5>这里该地图的拥有的信标Name：&nbsp;&nbsp;&nbsp;&nbsp;{item.attributes.beacon}</h5>
+                                <h5>{item.id}</h5>
                             </div>
-                            <StyledButton type="primary" onClick={onClick}>进入地图</StyledButton>
                         </List.Item>
                     }
                 >

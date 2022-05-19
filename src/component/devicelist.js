@@ -13,6 +13,7 @@ const Component = observer(() => {
     };
     useEffect(() => {
         console.log('进入组件')
+       
         return () => {
             console.log('卸载')
             DeviceStore.reset();
@@ -42,11 +43,7 @@ const Component = observer(() => {
             </List.Item>
         }
     >
-        {DeviceStore.isLoading &&DeviceStore.hasMore && (
-            <div>
-                <Spin tip="加载中"/>
-            </div>
-        )}
+        {  DeviceStore.isLoading &&DeviceStore.hasMore && (<div> <Spin tip="加载中"/> </div>)  }
     </List>
 </InfiniteScroll>
 </div> 

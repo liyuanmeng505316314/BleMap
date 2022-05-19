@@ -33,7 +33,6 @@ const Component = () => {
             console.log(e)
             console.log('登录失败')
         })
-
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -48,79 +47,19 @@ const Component = () => {
 
     return (
         <Wrapper>
-            <Title>
-                登录
-            </Title>
-
-            <Form
-                name="basic"
-                labelCol={{
-                    span: 4,
-                }}
-                wrapperCol={{
-                    span: 20,
-                }}
-                initialValues={{
-                    remember: true,
-                }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                autoComplete="off"
+            <Title>登录</Title>
+            <Form name="basic" labelCol={{span: 4,}}wrapperCol={{span: 20,}}initialValues={{remember: true,}}
+             onFinish={onFinish}onFinishFailed={onFinishFailed}autoComplete="off"
             >
-                <Form.Item
-                    label="用户名"
-                    name="username"
-                    rules={[
-                        {
-                            required: true,
-                            message: '请输入用户名!',
-                        }, {
-                            validator: validateUsername
-                        }
-                    ]}
-                >
+                <Form.Item label="用户名" name="username" rules={[{required: true,message: '请输入用户名!',}, {validator: validateUsername}]}>
                     <Input/>
                 </Form.Item>
 
-                <Form.Item
-
-                    label="密码"
-                    name="password"
-                    rules={[
-                        {
-                            required: true,
-                            message: '请输入密码！',
-                        }, {
-                            min: 4,
-                            message: '最小4个字符'
-
-                        }, {
-                            max: 10,
-                            message: '最大10个字符'
-                        }
-                    ]}
-                >
+                <Form.Item label="密码" name="password" rules={[{required: true,message: '请输入密码！',}, {min: 4, message: '最小4个字符'},{max: 10,message: '最大10个字符'}]}>
                     <Input.Password/>
                 </Form.Item>
 
-                {/* 没有用的cheackbox栏 */}
-                {/* <Form.Item
-        name="remember"
-        valuePropName="checked"
-        wrapperCol={{
-          offset: 8,
-          span: 16,
-        }}
-      >
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item> */}
-
-                <Form.Item
-                    wrapperCol={{
-                        offset: 10,
-                        span: 30,
-                    }}
-                >
+                <Form.Item wrapperCol={{offset: 10,span: 30,}}>
                     <Button type="primary" htmlType="submit">
                         提交
                     </Button>

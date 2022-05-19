@@ -35,6 +35,7 @@ const Auth = { //Auth是个对象，封装了几个工具方法
 //这个对象负责地图上传和查找的，同时也负责绘制地图
 //给地图添加信标，去信标哪个数据库区找信标，然后显示一个地图有哪些信标，最后显示信标旁边的设备（这个要去信标的数据库去拿数据）
 const Uploader = {
+    
     add(filename, file) {
         const item = new AV.Object('image')
         var avFile = new AV.File(filename, file);
@@ -44,11 +45,37 @@ const Uploader = {
         return new Promise((resolve, reject) => {
             item.save().then((serverFile => resolve(serverFile)), error => reject(error))
         })
+    },addBeacon(mapUrl,beaconName){
+        console.log(mapUrl)
+        const todo = AV.Object.createWithoutData('image', mapUrl);
+        todo.set('beacon', beaconName);
+        todo.save();
     },
     find({page = 0, limit = 10}) {
         console.log('执行了model的find')
         const query = new AV.Query('image');
         query.include('owner');
+        query.doesNotExist('beacon');
+        query.limit(limit);   // 用来设置返回结果的数量
+        query.skip(page * limit); // 用来设置跳过的数据，skip和limit结合实现翻页功能
+        query.descending('createdAt');  //查询结果的排序
+        query.equalTo('owner', AV.User.current());  //查询的条件
+        return new Promise((resolve, reject) => {
+            query.find()
+                .then(results => {
+                    console.log('执行了query的find');
+                    resolve(results)
+                })
+                .catch(error => {
+                    console.log('query的find失败');
+                    reject(error)
+                })
+        });
+    },findBeacon({page = 0, limit = 10}){
+        console.log('执行了model种的find信标')
+        const query = new AV.Query('image');
+        query.include('owner');
+        query.exists('beacon');
         query.limit(limit);   // 用来设置返回结果的数量
         query.skip(page * limit); // 用来设置跳过的数据，skip和limit结合实现翻页功能
         query.descending('createdAt');  //查询结果的排序
@@ -110,6 +137,38 @@ const Beacon = {
         })
     },
     find({page = 0, limit = 10}) {
+        const todo = AV.Object.createWithoutData('image', '626ff4dee12bbd613358b459');
+        todo.destroy();
+        console.log('执行了model的find')
+        const query = new AV.Query('Beacon');
+        query.limit(limit);
+        query.skip(page * limit);
+        query.descending('createdAt');
+        return new Promise((resolve, reject) => {
+            query.find()
+                .then(results => {
+                    console.log('执行了query的find');
+                    resolve(results)
+                })
+                .catch(error => {
+                    console.log('query的find失败');
+                    reject(error)
+                })
+        });
+    }
+}
+
+const Map = {
+    add(beaconID, beaconName) {
+        const item = new AV.Object('Map')
+        item.set('beaconID', beaconID);
+        item.set('beaconName', beaconName);
+        item.set('owner', AV.User.current());
+        return new Promise((resolve, reject) => {
+            item.save().then((serverFile => resolve(serverFile)), error => reject(error))
+        })
+    },
+    find({page = 0, limit = 10}) {
         console.log('执行了model的find')
         const query = new AV.Query('Beacon');
         query.limit(limit);
@@ -131,7 +190,7 @@ const Beacon = {
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export {Auth, Uploader,Device,Beacon}; //把Auth对象导出去
+export {Auth, Uploader,Device,Beacon,Map}; //把Auth对象导出去
 
 
 

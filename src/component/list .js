@@ -47,9 +47,9 @@ const Component = observer(() => {
                                 <h5>{item.attributes.title}</h5>
                             </div>
                             <div>
-                                <a target="_blank"
-                                   href={item.attributes.url.attributes.url}>{item.attributes.url.attributes.url}</a>
+                                <h5>{item.id}</h5>
                             </div>
+                           
                         </List.Item>
                     }
                 >

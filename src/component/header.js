@@ -37,6 +37,7 @@ const StyledLink = styled(NavLink)`
 const StyledButton = styled(Button)`
   margin-left: 40px;
 `
+
 const H3 = styled.h3`
   color: #fff;
   margin-top: 12px;

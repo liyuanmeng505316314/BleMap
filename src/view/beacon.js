@@ -21,7 +21,7 @@ const Component = () => {
     const onFinish = (values) => {
         console.log('输入的values的值为:', values);
         BeaconStore.setBeaconID(values.beaconID);
-        BeaconStore.setBeaconName(values.beaconID);
+        BeaconStore.setBeaconName(values.beaconName);
         BeaconStore.addBeacon()
             .then(() => {
                 message.success('添加成功')

@@ -46,7 +46,7 @@ const Component = () => {
 
            <Form name="basic" labelCol={{span: 4,}} wrapperCol={{span: 20,}} initialValues={{remember: true,}} onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete="off">
 
-            <Form.Item label="设备ID" name="deviceID" rules={[ { required: true, message: '设备ID!' , } ]}>
+            <Form.Item label="设备Name" name="deviceID" rules={[ { required: true, message: '设备ID!' , } ]}>
                <Input />
             </Form.Item>
 

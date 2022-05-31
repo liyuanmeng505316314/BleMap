@@ -71,7 +71,7 @@ const Component = observer(() => {
                 <StyledLink to="/history" style={{textDecoration: 'none'}} activeClassName="active">未绘制的地图</StyledLink>
                 <StyledLink to="/madeMap" style={{textDecoration: 'none'}} activeClassName="active">绘制地图</StyledLink>
                 <StyledLink to="/doneMap" style={{textDecoration: 'none'}} activeClassName="active">绘制好的地图</StyledLink>
-                <StyledLink to="/map" exact style={{textDecoration: 'none'}} activeClassName="active">实时定位</StyledLink>
+                {/* <StyledLink to="/map" exact style={{textDecoration: 'none'}} activeClassName="active">实时定位</StyledLink> */}
                 <StyledLink to="/beacon" style={{textDecoration: 'none'}} activeClassName="active">信标管理</StyledLink>
                 <StyledLink to="/device" style={{textDecoration: 'none'}} activeClassName="active">设备管理</StyledLink>
                 <StyledLink to="/about" style={{textDecoration: 'none'}} activeClassName="active">关于本系统</StyledLink>

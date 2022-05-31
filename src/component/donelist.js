@@ -58,10 +58,10 @@ const Component = observer(() => {
                                 <Img src={item.attributes.url.attributes.url}/>
                             </div>
                             <div>
-                                <h5>这里是地图的名称：&nbsp;&nbsp;&nbsp;&nbsp; {item.attributes.title}</h5>
+                                <h5>{item.attributes.title}</h5>
                             </div>
                             <div>
-                                <h5>这里该地图的拥有的信标Name：&nbsp;&nbsp;&nbsp;&nbsp;{item.attributes.beacon}</h5>
+                                <h5>所拥有的信标：&nbsp;&nbsp;{item.attributes.beacon}</h5>
                             </div>
                             <StyledButton type="primary" onClick={onClick}>进入地图</StyledButton>
                         </List.Item>

@@ -188,9 +188,39 @@ const Map = {
     }
 }
 
+const ShowDevice={ //用于找到地图上有的信标旁边的设备
+    find({page = 0, limit = 10},str) {
+        // var text = "1,2,3,4,5";var array = text.split(",");//逗号是分隔符
+        // 这样就转化成数组了
+        console.log(str)  //str是信标字符串，要进行解析，解析成一个数组，然后查找
+        let arr=str.split(",")
+        for(let i=0;i<arr.length;i++){ 
+           console.log(arr[i])
+        }
+        console.log('执行了model的find')
+        const query = new AV.Query('image');
+        query.include('owner');
+        query.doesNotExist('beacon');
+        query.limit(limit);   // 用来设置返回结果的数量
+        query.skip(page * limit); // 用来设置跳过的数据，skip和limit结合实现翻页功能
+        query.descending('createdAt');  //查询结果的排序
+        query.equalTo('owner', AV.User.current());  //查询的条件
+        return new Promise((resolve, reject) => {
+            query.find()
+                .then(results => {
+                    console.log('执行了query的find');
+                    resolve(results)
+                })
+                .catch(error => {
+                    console.log('query的find失败');
+                    reject(error)
+                })
+        });
+    }
+}
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export {Auth, Uploader,Device,Beacon,Map}; //把Auth对象导出去
+export {Auth, Uploader,Device,Beacon,Map,ShowDevice}; //把Auth对象导出去
 
 
 

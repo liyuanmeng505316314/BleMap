@@ -23,13 +23,11 @@ class  DeviceStore {
     }
 
     @action setDeviceID(deviceID){
-        deviceID=parseInt(deviceID)
         this.values.deviceID  =deviceID
         console.log('成功执行了setDeviceID')
     }
 
     @action setDeviceName(deviceName){
-        deviceName=parseInt(deviceName)
         this.values.deviceName=deviceName
         console.log('成功执行了setDeviceName')
     }

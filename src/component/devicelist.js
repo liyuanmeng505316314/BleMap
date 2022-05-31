@@ -13,7 +13,6 @@ const Component = observer(() => {
     };
     useEffect(() => {
         console.log('进入组件')
-       
         return () => {
             console.log('卸载')
             DeviceStore.reset();
@@ -36,7 +35,7 @@ const Component = observer(() => {
             item => <List.Item key={item._serverData.deviceID}>
             
                 <div>
-                    <span>设备ID为：{item._serverData.deviceID}，</span>
+                    <span>设备Name为：{item._serverData.deviceID}，</span>
                     <span>设备IMEI为：{item._serverData.deviceIMEI}</span>
                 </div>
 

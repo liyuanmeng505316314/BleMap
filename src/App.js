@@ -35,7 +35,6 @@ function App() {
                         <Route path="/beacon" exact component={Beacon}/>    {/*这里是实时信标管理 */}
                         <Route path="/device" exact component={Device}/>     {/*这里是实时设备管理 */}
                         <Route path="/about" component={About}/>             {/*这里是实时关于 */}
-                    
                         <Route path="/register" component={Register}/>     {/*这里是不显示的注册 */}
                         <Route path="/login" component={Login}/>            {/*这里是不显示的登录 */}
                     </Switch>
@@ -47,3 +46,4 @@ function App() {
 }
 
 export default App;
+

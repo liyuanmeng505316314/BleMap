@@ -1,5 +1,5 @@
 import {observable, action, makeObservable} from 'mobx';
-import {Uploader} from '../model';
+import {Uploader,ShowDevice} from '../model';
 import {message} from 'antd';
 
 
@@ -31,6 +31,7 @@ class HistoryStore {
         this.values.beaconName = beaconName
         console.log('成功执行了setBeaconName')
     }
+
     @action addBeacon(){  // 这个MVC中的 store 是去添加beacon属性
         return new Promise((resolve, reject) => {  
             Uploader.addBeacon( this.values.mapUrl, this.values.beaconName) 
@@ -48,6 +49,7 @@ class HistoryStore {
                 })
         })
     }
+
     @action find() {  // 这个MVC中的 store 是去找不含beacon属性的图片
         console.log('store find image')
         this.isLoading = true;
@@ -67,6 +69,27 @@ class HistoryStore {
             this.isLoading = false;
         });
     }
+    @action findDeviceInMap() {  
+        console.log('store find image')
+        this.isLoading = true;
+        ShowDevice.find({page: this.page, limit: this.limit})
+            .then(newList => {
+                console.log('执行了第Uploader的find')
+                this.append(newList);
+                console.log('打印newlist' + newList)
+                this.page++;
+                if (newList.length < this.limit) {
+                    this.hasMore = false;
+                }
+                console.log('Uploader.find执行完成')
+            }).catch(error => {
+            message.error('加载数据失败',error);
+        }).finally(() => {
+            this.isLoading = false;
+        });
+    }
+
+
     @action findBeacon() { // 这个MVC中的 store 是去找含beacon属性的图片
         console.log('store find image')
         this.isLoading = true;
